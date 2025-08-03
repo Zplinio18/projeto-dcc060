@@ -2,14 +2,10 @@
   Trabalho DCC060 - Avali_e ⭐
 </h1>
 
----
-
 ## ❔ Sobre
 
 Este é um sistema de avaliação no estilo Letterboxd, porém para álbuns e músicas.  
 Este projeto é apenas um **preview** de como o sistema funcionaria e **não está 100% implementado**.
-
----
 
 ## 🛠 Tecnologias Utilizadas
 
@@ -18,8 +14,6 @@ Este projeto é apenas um **preview** de como o sistema funcionaria e **não est
   <img width="60rem" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg" />
   <img width="60rem" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-plain-wordmark.svg" />
 </div>
-
----
 
 ## ♻ Como Configurar o Projeto
 
