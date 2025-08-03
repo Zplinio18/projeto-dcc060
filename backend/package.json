@@ -7,7 +7,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.ts",
-    "dev": "node --no-warnings=ExperimentalWarning --loader ts-node/esm src/server.ts"
+    "dev": "node --no-warnings=ExperimentalWarning --loader ts-node/esm src/server.ts",
+    "migrate": "node --no-warnings=ExperimentalWarning --loader ts-node/esm src/database/migration.ts",
+    "seed": "node --no-warnings=ExperimentalWarning --loader ts-node/esm src/database/seeder.ts"
   },
   "keywords": [],
   "author": "",

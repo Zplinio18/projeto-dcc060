@@ -1,24 +1,13 @@
 import 'dotenv/config';
 import postgres from 'postgres';
 
-const {
-  PGHOST,
-  PGDATABASE,
-  PGUSER,
-  PGPASSWORD: rawPassword,
-  ENDPOINT_ID,
-} = process.env;
-
-const password = rawPassword ? decodeURIComponent(rawPassword) : undefined;
+const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
 
 export const sql = postgres({
-  host: PGHOST,
-  database: PGDATABASE,
-  username: PGUSER,
-  password,
+  host: process.env.PGHOST,
+  database: process.env.PGDATABASE,
+  username: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
   port: 5432,
   ssl: 'require',
-  connection: {
-    options: `project=${ENDPOINT_ID}`,
-  },
 });

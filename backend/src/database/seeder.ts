@@ -1,5 +1,6 @@
 import {sql} from './connection.ts';
 
-sql``.then(() => {
+await sql`
+`.then(() => {
     console.log('Seeder executed');
 })

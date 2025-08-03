@@ -5,6 +5,14 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+interface Review {
+  user_id: string;
+  id_album: string;
+  nota: number;
+  descricao: string;
+  data: Date;
+}
+
 const server = Fastify();
 const database = new DatabasePostgres();
 
@@ -13,16 +21,30 @@ server.register(FastifyCors, {
 });
 
 server.post('/review/:id', async (request: FastifyRequest, reply: FastifyReply) => {
+  const { id } : {id: string} = request.params as {id: string};
+  const { id_album, nota, descricao } : Review = request.body as Review;
+  const review: Review = {
+    user_id: id,
+    id_album,
+    nota,
+    descricao,
+    data: new Date(),
+  };
+
+  await database.createReview(review);
   return reply.code(201).send();
 });
 
-server.get('/albuns', async (request: FastifyRequest, reply: FastifyReply) => {
-  const albuns = await database.list();
-  return reply.send(albuns);
+server.get('/review/:id', async (request: FastifyRequest, reply: FastifyReply) => {
+  const { id } : {id: string} = request.params as {id: string};
+  const { id_album } : {id_album: string} = request.query as {id_album: string};
+  const review = await database.listReview(id, id_album);
+  return reply.send(review);
 });
 
-server.get('/albuns/:id', async (request: FastifyRequest, reply: FastifyReply) => {
-  return reply.send();
+server.get('/albuns', async (request: FastifyRequest, reply: FastifyReply) => {
+  const albuns = await database.listAlbuns();
+  return reply.send(albuns);
 });
 
 server.listen({ port: 3333 }, (err) => {
