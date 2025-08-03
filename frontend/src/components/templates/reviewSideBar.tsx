@@ -112,7 +112,7 @@ function ReviewSideBar({ selectedAlbum }: ReviewSideBarProps) {
   }, [selectedAlbum]);
 
   return (
-    <Container.Flex className="flex w-full flex-col p-8 md:h-screen md:w-[25%] md:pt-20">
+    <Container.Flex className="flex w-full flex-col px-2 py-6 md:h-screen md:w-[25%] md:pt-20">
       <ToastContainer
         position="top-right"
         autoClose={1500}
@@ -127,7 +127,7 @@ function ReviewSideBar({ selectedAlbum }: ReviewSideBarProps) {
         {selectedAlbum ? (
           <>
             <Container.Flex
-              className="flex h-60 w-60 flex-col rounded-full bg-cover bg-center"
+              className="flex max-h-52 min-h-52 min-w-52 max-w-52 flex-col rounded-full bg-cover bg-center"
               style={{
                 backgroundImage: `url(${selectedAlbum.foto_capa})`,
               }}
@@ -139,8 +139,8 @@ function ReviewSideBar({ selectedAlbum }: ReviewSideBarProps) {
               {selectedAlbum.nome}
             </Text.Defaut>
 
-            <Container.Flex className="h-[40dvh] w-full flex-col items-center justify-between gap-9">
-              <Container.Flex className="w-full flex-col items-center gap-12">
+            <Container.Flex className="w-full flex-col items-center justify-between gap-9">
+              <Container.Flex className="w-full flex-col items-center gap-8">
                 <Container.Flex className="gap-2">
                   {[...Array(5)].map((_, index) => {
                     const starValue = index + 1;
@@ -161,12 +161,12 @@ function ReviewSideBar({ selectedAlbum }: ReviewSideBarProps) {
                   })}
                 </Container.Flex>
 
-                <Container.Flex className="w-full flex-col gap-2">
+                <Container.Flex className="w-full flex-col gap-1">
                   <Text.Defaut className="text-xs font-medium text-zinc-600">
                     Descrição {existingReview ? '' : '(opcional)'}
                   </Text.Defaut>
                   <textarea
-                    className={`max-h-60 min-h-60 w-full rounded-lg p-2 ${
+                    className={`max-h-[16dvh] min-h-[16dvh] w-full rounded-lg p-2 ${
                       existingReview
                         ? 'border border-zinc-900 bg-zinc-950 text-zinc-600'
                         : 'bg-zinc-900 text-white'
@@ -187,7 +187,7 @@ function ReviewSideBar({ selectedAlbum }: ReviewSideBarProps) {
 
               {!existingReview && (
                 <Button.Submit
-                  className="hover:text-zinc-900' w-full rounded-lg bg-zinc-900 p-2 font-semibold text-white duration-300 hover:bg-white"
+                  className="w-full cursor-pointer rounded-lg bg-zinc-900 p-2 font-semibold text-white duration-300 hover:bg-white hover:text-zinc-900"
                   text="Adicionar"
                   onClick={handleSubmit}
                   disabled={!!existingReview || isSubmitting || rating === 0}
