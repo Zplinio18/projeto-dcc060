@@ -2,22 +2,23 @@ import 'dotenv/config';
 import { sql } from "./connection.ts";
 
 await sql`
-  CREATE TABLE genero (
-  id INT PRIMARY KEY,
+CREATE TABLE genero (
+  id SERIAL PRIMARY KEY,
   nome VARCHAR(100) NOT NULL UNIQUE,
   descricao TEXT NULL
 );
+
 `
 await sql`
 CREATE TABLE tag (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nome VARCHAR(100) NOT NULL UNIQUE
 );
 `
 
 await sql`
 CREATE TABLE usuario (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   nome VARCHAR(150) NOT NULL,
   data_nascimento DATE NOT NULL,
   username VARCHAR(50) NOT NULL UNIQUE,
@@ -31,13 +32,16 @@ CREATE TABLE usuario (
 `
 await sql`
 CREATE TABLE usuario_comum (
-  id INT PRIMARY KEY REFERENCES usuario(id)
+  id INT PRIMARY KEY,
+  FOREIGN KEY (id) REFERENCES usuario(id)
 );
 `
 await sql`
 CREATE TABLE artista (
-  id INT PRIMARY KEY REFERENCES usuario(id),
-  genero_principal_id INT NULL REFERENCES genero(id)
+  id INT PRIMARY KEY,
+  genero_principal_id INT NULL,
+  FOREIGN KEY (id) REFERENCES usuario(id),
+  FOREIGN KEY (genero_principal_id) REFERENCES genero(id)
 );
 `
 
@@ -55,7 +59,7 @@ CREATE TABLE evento_seguir (
 
 await sql`
 CREATE TABLE album (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   titulo VARCHAR(200) NOT NULL,
   foto_capa VARCHAR(255) NULL,
   genero_id INT NOT NULL,
@@ -70,7 +74,7 @@ CREATE TABLE album (
 
 await sql`
 CREATE TABLE musica (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   titulo VARCHAR(200) NOT NULL,
   foto_capa VARCHAR(255) NULL,
   genero_id INT NOT NULL,
@@ -115,7 +119,7 @@ CREATE TABLE album_artista (
 
 await sql`
 CREATE TABLE avaliacao (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   usuario_id INT NOT NULL,
   musica_id INT NULL,
   album_id INT NULL,
@@ -137,7 +141,7 @@ CREATE TABLE avaliacao (
 
 await sql`
 CREATE TABLE resposta (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   avaliacao_id INT NOT NULL,
   usuario_id INT NOT NULL,
   texto TEXT  NOT NULL,
@@ -149,7 +153,7 @@ CREATE TABLE resposta (
 
 await sql`
 CREATE TABLE playlist (
-  id INT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   usuario_id INT NOT NULL,
   titulo VARCHAR(150) NOT NULL,
   descricao TEXT NULL,

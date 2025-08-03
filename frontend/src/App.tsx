@@ -9,7 +9,7 @@ interface Album {
   id: number;
   titulo: string;
   foto_capa: string;
-  gravadora: string;
+  nome: string;
 }
 
 function App() {

@@ -10,7 +10,6 @@ interface Review {
   id_album: string;
   nota: number;
   descricao: string;
-  data: Date;
 }
 
 const server = Fastify();
@@ -28,17 +27,21 @@ server.post('/review/:id', async (request: FastifyRequest, reply: FastifyReply) 
     id_album,
     nota,
     descricao,
-    data: new Date(),
   };
 
   await database.createReview(review);
   return reply.code(201).send();
 });
 
-server.get('/review/:id', async (request: FastifyRequest, reply: FastifyReply) => {
-  const { id } : {id: string} = request.params as {id: string};
-  const { id_album } : {id_album: string} = request.query as {id_album: string};
-  const review = await database.listReview(id, id_album);
+server.get('/review/:id/:id_album', async (request: FastifyRequest, reply: FastifyReply) => {
+  const { id, id_album } = request.params as {id: string, id_album: string};
+  const userId = Number(id);
+  const albumId = Number(id_album);
+  
+  const reviews = await database.listReview(userId, albumId);
+
+  const review = reviews.length > 0 ? reviews[0] : null;
+  
   return reply.send(review);
 });
 
